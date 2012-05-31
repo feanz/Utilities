@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0"
+         DefaultTargets="Package">  
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>    
+  </PropertyGroup>
+
+  <ItemGroup Label="Solution">
+    <SolutionName Include="Utilities" />
+    <BuildArtifacts Include=".\buildartifacts\" />
+    <SolutionFile Include=".\Utilities.sln" />    
+  </ItemGroup>
+
+  <ItemGroup Label="Test">
+    <MSTest Include="&quot;$(VS100COMNTOOLS)..\IDE\mstest.exe&quot;"/>
+    <UnitTestAssembly Include="Utilities.Test.dll" />    
+    <UnitTestResults Include="UtilitiesTestResult.trx" />    
+  </ItemGroup>  
+ 
+  <Target Name="Clean">
+    <RemoveDir Directories="@(BuildArtifacts)" />
+  </Target>
+
+  <Target Name="Init" DependsOnTargets="Clean">
+    <MakeDir Directories="@(BuildArtifacts)" />    
+  </Target>
+
+  <!-- Build solution using passed in configuration -->
+  <Target Name="Compile" DependsOnTargets="Init">
+    <MSBuild Projects="@(SolutionFile)" Targets="Rebuild" Properties="OutDir=%(BuildArtifacts.FullPath);Configuration=$(Configuration);" />    
+  </Target>
+
+  <!-- Run application unit test -->
+  <Target Name="UnitTest" DependsOnTargets="Compile">
+    <PropertyGroup>
+      <!--TestSuccessOrNot is the property specify whether the Test is sucess or not -->
+      <TestSuccessOrNot>1</TestSuccessOrNot>
+    </PropertyGroup>
+    <!--Run MSTest.exe-->
+    <Exec Command="@(MSTest) /testcontainer:@(BuildArtifacts)\@(UnitTestAssembly) /resultsfile:@(BuildArtifacts)\@(UnitTestResults) /testsettings:.\local.testsettings ">      
+      <Output TaskParameter="ExitCode" PropertyName="TestSuccessOrNot"/>
+    </Exec>    
+  </Target>
+
+  <Target Name="Package" DependsOnTargets="UnitTest">
+    <Exec Command="del *.nupkg"/>
+    <Exec Command="nuget pack Utilities\Utilities.csproj"/>
+    <Exec Command="copy *.nupkg C:\Packages"/>
+  </Target>
+</Project>
+
+
+

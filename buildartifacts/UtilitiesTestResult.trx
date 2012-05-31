@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="51b2fcfa-496b-44b1-a0dd-592227d942e1" name="forrestr1@GBNEWW155 2012-01-23 16:34:15" runUser="GSLGLOBAL\forrestr1" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="7040caa1-6148-4359-bc3f-4e9c21ba0049">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\Development\Prototype\Utilities\buildartifacts" useDefaultDeploymentRoot="false" enabled="false" runDeploymentRoot="forrestr1_GBNEWW155 2012-01-23 16_34_15" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-01-23T16:34:15.4887520+00:00" queuing="2012-01-23T16:34:15.9977520+00:00" start="2012-01-23T16:34:16.0337520+00:00" finish="2012-01-23T16:34:16.3327520+00:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="FluentValidator_Should_Return_No_Errors_For_A_Valid_Entity" storage=".\buildartifacts\\utilities.test.dll" id="39724289-4dc7-4271-493d-a45b035d92fa">
+      <Execution id="ba14f026-9368-43a5-883f-563b7611fc05" />
+      <TestMethod codeBase="C:/Development/Prototype/Utilities/buildartifacts/Utilities.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Utilities.Test.Validation.ValidatorFluentTests, Utilities.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="FluentValidator_Should_Return_No_Errors_For_A_Valid_Entity" />
+    </UnitTest>
+    <UnitTest name="FluentValidator_Should_Return_No_Errors_For_Validate_Function_" storage=".\buildartifacts\\utilities.test.dll" id="82f58175-a690-128c-1863-6aa45bd9fe7e">
+      <Execution id="c0d98107-db96-4815-a4a6-ab341e5d2ace" />
+      <TestMethod codeBase="C:/Development/Prototype/Utilities/buildartifacts/Utilities.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Utilities.Test.Validation.ValidatorFluentTests, Utilities.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="FluentValidator_Should_Return_No_Errors_For_Validate_Function_" />
+    </UnitTest>
+    <UnitTest name="FluentValidator_Should_Return_Errors_For_Null_Property_Validation_Check" storage=".\buildartifacts\\utilities.test.dll" id="f351a198-9b31-46c0-9f39-2350f492daf0">
+      <Execution id="f61ce724-4957-4e39-a310-09f711625ca5" />
+      <TestMethod codeBase="C:/Development/Prototype/Utilities/buildartifacts/Utilities.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Utilities.Test.Validation.ValidatorFluentTests, Utilities.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="FluentValidator_Should_Return_Errors_For_Null_Property_Validation_Check" />
+    </UnitTest>
+    <UnitTest name="FluentValidator_Should_Return_Errors_For_invalide_Validate_Function_" storage=".\buildartifacts\\utilities.test.dll" id="4caa0d89-64b1-6596-90e6-a5c6c8888859">
+      <Execution id="8d3e6f39-2df4-401a-8358-272bdb998194" />
+      <TestMethod codeBase="C:/Development/Prototype/Utilities/buildartifacts/Utilities.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Utilities.Test.Validation.ValidatorFluentTests, Utilities.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="FluentValidator_Should_Return_Errors_For_invalide_Validate_Function_" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="4caa0d89-64b1-6596-90e6-a5c6c8888859" executionId="8d3e6f39-2df4-401a-8358-272bdb998194" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f351a198-9b31-46c0-9f39-2350f492daf0" executionId="f61ce724-4957-4e39-a310-09f711625ca5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39724289-4dc7-4271-493d-a45b035d92fa" executionId="ba14f026-9368-43a5-883f-563b7611fc05" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82f58175-a690-128c-1863-6aa45bd9fe7e" executionId="c0d98107-db96-4815-a4a6-ab341e5d2ace" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="8d3e6f39-2df4-401a-8358-272bdb998194" testId="4caa0d89-64b1-6596-90e6-a5c6c8888859" testName="FluentValidator_Should_Return_Errors_For_invalide_Validate_Function_" computerName="GBNEWW155" duration="00:00:00.0199810" startTime="2012-01-23T16:34:16.0517520+00:00" endTime="2012-01-23T16:34:16.2747520+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d3e6f39-2df4-401a-8358-272bdb998194">
+    </UnitTestResult>
+    <UnitTestResult executionId="f61ce724-4957-4e39-a310-09f711625ca5" testId="f351a198-9b31-46c0-9f39-2350f492daf0" testName="FluentValidator_Should_Return_Errors_For_Null_Property_Validation_Check" computerName="GBNEWW155" duration="00:00:00.0022522" startTime="2012-01-23T16:34:16.2797520+00:00" endTime="2012-01-23T16:34:16.2887520+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f61ce724-4957-4e39-a310-09f711625ca5">
+    </UnitTestResult>
+    <UnitTestResult executionId="ba14f026-9368-43a5-883f-563b7611fc05" testId="39724289-4dc7-4271-493d-a45b035d92fa" testName="FluentValidator_Should_Return_No_Errors_For_A_Valid_Entity" computerName="GBNEWW155" duration="00:00:00.0128694" startTime="2012-01-23T16:34:16.2907520+00:00" endTime="2012-01-23T16:34:16.3087520+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba14f026-9368-43a5-883f-563b7611fc05">
+    </UnitTestResult>
+    <UnitTestResult executionId="c0d98107-db96-4815-a4a6-ab341e5d2ace" testId="82f58175-a690-128c-1863-6aa45bd9fe7e" testName="FluentValidator_Should_Return_No_Errors_For_Validate_Function_" computerName="GBNEWW155" duration="00:00:00.0014947" startTime="2012-01-23T16:34:16.3097520+00:00" endTime="2012-01-23T16:34:16.3147520+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0d98107-db96-4815-a4a6-ab341e5d2ace">
+    </UnitTestResult>
+  </Results>
+</TestRun>

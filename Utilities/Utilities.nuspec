@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+     <id>Utilities</id>
+    <version>$version$</version>
+    <title>Utilities</title>
+    <authors>Richard Forrest</authors>
+    <owners>Richard Forrest</owners>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A base Utility lib</description>
+    <releaseNotes>Some stuff.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Utility</tags>
+  </metadata>
+</package>
