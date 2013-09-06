@@ -30,10 +30,10 @@ namespace Utilities.Cryptography
         public static string Decrypt(string input, string key, Encoding encodingUsing = null)
         {
 	        if (string.IsNullOrEmpty(input))
-		        throw new ArgumentException("input");
+				throw new ArgumentNullException("input");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 			encodingUsing = encodingUsing ?? new UTF8Encoding();
 
@@ -56,10 +56,10 @@ namespace Utilities.Cryptography
         public static string Encrypt(string input, string key, Encoding encodingUsing = null)
         {
 			if (string.IsNullOrEmpty(input))
-				throw new ArgumentException("input");
+				throw new ArgumentNullException("input");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 	        encodingUsing = encodingUsing ?? new UTF8Encoding();
 
@@ -85,10 +85,10 @@ namespace Utilities.Cryptography
         public static string SignHash(string input, string key, out string hash, Encoding encodingUsing = null,  string hashIdentifer = "SHA1")
         {
 			if (string.IsNullOrEmpty(input))
-				throw new ArgumentException("input");
+				throw new ArgumentNullException("input");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 	        encodingUsing = encodingUsing ?? new UTF8Encoding();
 
@@ -114,13 +114,13 @@ namespace Utilities.Cryptography
 	    public static bool VerifyHash(string hash, string signedHash, string key, string hashIdentifer = "SHA1")
         {
 			if (string.IsNullOrEmpty(hash))
-				throw new ArgumentException("input");
+				throw new ArgumentNullException("input");
 
 			if (string.IsNullOrEmpty(signedHash))
-				throw new ArgumentException("signedHash");
+				throw new ArgumentNullException("signedHash");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
             using (var rsa = new RSACryptoServiceProvider())
             {

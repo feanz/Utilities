@@ -22,13 +22,13 @@ namespace Utilities.IO.Extensions
 			CopyOptions options = CopyOptions.CopyAlways)
 		{
 			if (source == null)
-				throw new ArgumentException("source");
+				throw new ArgumentNullException("source");
 
 			if (!source.Exists)
 				throw new DirectoryNotFoundException("Source directory " + source.FullName + " not found.");
 
 			if (destination == null)
-				throw new ArgumentException("destination");
+				throw new ArgumentNullException("destination");
 
 			var destinationInfo = new DirectoryInfo(destination);
 			destinationInfo.Create();

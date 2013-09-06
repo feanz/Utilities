@@ -84,7 +84,7 @@ namespace Utilities.Binary.Extensions
 		public static byte[] Compress(this byte[] data, CompressionType compressionType = CompressionType.Deflate)
 		{
 			if (data == null)
-				throw new ArgumentException("data");
+				throw new ArgumentNullException("data");
 
 			using (var stream = new MemoryStream())
 			{
@@ -108,7 +108,7 @@ namespace Utilities.Binary.Extensions
 			CompressionType compressionType = CompressionType.Deflate)
 		{
 			if (data == null)
-				throw new ArgumentException("data");
+				throw new ArgumentNullException("data");
 
 			return data.ToByteArray(encodingUsing).Compress(compressionType).ToBase64String();
 		}
@@ -122,7 +122,7 @@ namespace Utilities.Binary.Extensions
 		public static byte[] Decompress(this byte[] data, CompressionType CompressionType = CompressionType.Deflate)
 		{
 			if (data == null)
-				throw new ArgumentException("data");
+				throw new ArgumentNullException("data");
 
 			using (var stream = new MemoryStream())
 			{
@@ -152,7 +152,7 @@ namespace Utilities.Binary.Extensions
 			CompressionType CompressionType = CompressionType.Deflate)
 		{
 			if (data == null)
-				throw new ArgumentException("data");
+				throw new ArgumentNullException("data");
 
 			return data.Base64ToByteArray().Decompress(CompressionType).ToEncodedString(EncodingUsing);
 		}

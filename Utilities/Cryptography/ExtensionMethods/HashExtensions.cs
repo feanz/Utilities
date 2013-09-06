@@ -18,7 +18,7 @@ namespace Utilities.Cryptography.ExtensionMethods
 		public static byte[] Hash(this byte[] data, HashAlgorithm algorithm = null)
 		{
 			if (data == null)
-				throw new ArgumentException("data");
+				throw new ArgumentNullException("data");
 
 			algorithm = algorithm ?? new SHA256CryptoServiceProvider();
 			using (var Hasher = algorithm)
@@ -39,7 +39,7 @@ namespace Utilities.Cryptography.ExtensionMethods
 		public static string Hash(this string data, HashAlgorithm algorithm = null, Encoding encodingUsing = null)
 		{
 			if (string.IsNullOrEmpty(data))
-				throw new ArgumentException("data");
+				throw new ArgumentNullException("data");
 
 			return BitConverter.ToString(data.ToByteArray(encodingUsing).Hash(algorithm)).Replace("-", "");
 		}

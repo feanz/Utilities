@@ -19,7 +19,7 @@ namespace Utilities.IO.Extensions
 		public static FileInfo Append(this FileInfo file, string content, Encoding encodingUsing = null)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			encodingUsing = encodingUsing ?? new ASCIIEncoding();
 			var ContentBytes = encodingUsing.GetBytes(content);
@@ -35,7 +35,7 @@ namespace Utilities.IO.Extensions
 		public static FileInfo Append(this FileInfo file, byte[] content)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			if (!file.Exists)
 				return file.Save(content);
@@ -84,7 +84,7 @@ namespace Utilities.IO.Extensions
 		public static string Read(this FileInfo file)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			if (!file.Exists)
 				return "";
@@ -104,7 +104,7 @@ namespace Utilities.IO.Extensions
 		public static byte[] ReadBinary(this FileInfo file)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			if (!file.Exists)
 				return new byte[0];
@@ -138,7 +138,7 @@ namespace Utilities.IO.Extensions
 		public static FileInfo Save(this FileInfo file, string content, Encoding encodingUsing = null)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			if (encodingUsing == null)
 				encodingUsing = new ASCIIEncoding();
@@ -155,7 +155,7 @@ namespace Utilities.IO.Extensions
 		public static FileInfo Save(this FileInfo file, byte[] content)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			if (file.DirectoryName != null) new DirectoryInfo(file.DirectoryName).Create();
 			using (var Writer = file.Create())
@@ -179,7 +179,7 @@ namespace Utilities.IO.Extensions
 			Encoding encodingUsing = null)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			if (encodingUsing == null)
 				encodingUsing = new UTF8Encoding();
@@ -199,7 +199,7 @@ namespace Utilities.IO.Extensions
 		public static FileInfo SaveAsync(this FileInfo file, byte[] content, AsyncCallback callBack, object stateObject)
 		{
 			if (file == null)
-				throw new ArgumentException("file");
+				throw new ArgumentNullException("file");
 
 			new DirectoryInfo(file.DirectoryName).Create();
 			using (var Writer = file.Create())
@@ -218,8 +218,11 @@ namespace Utilities.IO.Extensions
 		/// <returns> The file info </returns>
 		public static FileInfo SetAttributes(this FileInfo file, FileAttributes attributes)
 		{
-			if (file == null || !file.Exists)
+			if (file == null)
 				throw new ArgumentNullException("file");
+
+			if (!file.Exists)
+				throw new ArgumentException("file does not exit");
 
 			File.SetAttributes(file.FullName, attributes);
 			return file;

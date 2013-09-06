@@ -39,10 +39,10 @@ namespace Utilities.Cryptography.ExtensionMethods
 		public static string Decrypt(this string cipherText, string key)
 		{
 			if (string.IsNullOrEmpty(cipherText))
-				throw new ArgumentException("plainText");
+				throw new ArgumentNullException("plainText");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 			var cipherData = Convert.FromBase64String(cipherText);
 
@@ -68,10 +68,10 @@ namespace Utilities.Cryptography.ExtensionMethods
 		public static byte[] Decrypt(this byte[] cipherData, string key)
 		{
 			if (cipherData == null)
-				throw new ArgumentException("plainTextData");
+				throw new ArgumentNullException("plainTextData");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 			var decryptedData = new byte[cipherData.Length];
 
@@ -123,10 +123,10 @@ namespace Utilities.Cryptography.ExtensionMethods
 		public static byte[] Encrypt(this byte[] plainTextData, string key)
 		{
 			if (plainTextData == null)
-				throw new ArgumentException("plainTextData");
+				throw new ArgumentNullException("plainTextData");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 			byte[] encryptedData;
 			using (var provider = new RijndaelManaged())
@@ -176,10 +176,10 @@ namespace Utilities.Cryptography.ExtensionMethods
 		public static string Encrypt(this string plainText, string key)
 		{
 			if (string.IsNullOrEmpty(plainText))
-				throw new ArgumentException("plainText");
+				throw new ArgumentNullException("plainText");
 
 			if (string.IsNullOrEmpty(key))
-				throw new ArgumentException("key");
+				throw new ArgumentNullException("key");
 
 			var plainTextData = Encoding.UTF8.GetBytes(plainText);
 

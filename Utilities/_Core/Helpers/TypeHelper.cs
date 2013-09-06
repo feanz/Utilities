@@ -39,7 +39,7 @@ namespace Utilities
 		{
 			var properties = typeof(T).GetProperties();
 			if (properties.Length != 1)
-				throw new ArgumentException("Can't get name when item has more than one property");
+				throw new ArgumentException("Can't get name when item has more than one property", "properties");
 			return properties[0].Name;
 		}
 

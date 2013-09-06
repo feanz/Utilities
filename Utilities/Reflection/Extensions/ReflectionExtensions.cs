@@ -141,10 +141,10 @@ namespace Utilities.Reflection.Extensions
 		public static object SetProperty(this object instance, string propertyName, object value)
 		{
 			if (instance == null)
-				throw new ArgumentException("instance");
+				throw new ArgumentNullException("instance");
 
 			if (string.IsNullOrWhiteSpace(propertyName))
-				throw new ArgumentException("propertyName");
+				throw new ArgumentNullException("propertyName");
 
 			var property = instance
 				.GetType()
@@ -171,10 +171,10 @@ namespace Utilities.Reflection.Extensions
 		public static object SetProperty(this object instance, string propertyName, string value)
 		{
 			if (instance == null)
-				throw new ArgumentException("instance");
+				throw new ArgumentNullException("instance");
 
 			if (string.IsNullOrWhiteSpace(propertyName))
-				throw new ArgumentException("propertyName");
+				throw new ArgumentNullException("propertyName");
 
 			var type = instance.GetType();
 			var property = type.GetProperty(propertyName);
@@ -202,10 +202,10 @@ namespace Utilities.Reflection.Extensions
 		public static object SetProperty<T>(this object instance, string propertyName, object value)
 		{
 			if (instance == null)
-				throw new ArgumentException("instance");
+				throw new ArgumentNullException("instance");
 
 			if (string.IsNullOrWhiteSpace(propertyName))
-				throw new ArgumentException("propertyName");
+				throw new ArgumentNullException("propertyName");
 
 			var type = instance.GetType();
 			var property = type.GetProperty(propertyName);
