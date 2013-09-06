@@ -1,4 +1,4 @@
-﻿namespace Utilities.IO.ExtensionMethods.Enums
+﻿namespace Utilities.IO.Extensions.Enums
 {
     /// <summary>
     ///   Options used in directory copying

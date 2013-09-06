@@ -21,7 +21,7 @@ namespace Utilities
         /// <param name="pageIndex"> Page index to start at. </param>
         /// <param name="pageSize"> Page size to start with. </param>
         /// <param name="totalRecords"> Total number of records to start with. </param>
-        public PagedList(int pageIndex, int pageSize, int totalRecords, IList<T> items)
+        public PagedList(int pageIndex, int pageSize, int totalRecords, ICollection<T> items)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;

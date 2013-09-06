@@ -44,6 +44,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -58,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binary\Extensions\ByteExtensions.cs" />
     <Compile Include="Cryptography\ExtensionMethods\HashExtensions.cs" />
     <Compile Include="Cryptography\ExtensionMethods\SymmetricExtensions.cs" />
     <Compile Include="Cryptography\RSAEncryption.cs" />
@@ -66,22 +68,28 @@
     <Compile Include="Csv\CsvRow.cs" />
     <Compile Include="Email\Email.cs" />
     <Compile Include="Extensions\Boolean.cs" />
-    <Compile Include="Extensions\ByteExtensions.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DateExtensions.cs" />
     <Compile Include="Extensions\DecimalExtensions.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
-    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Linq\DynamicQueryable.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
-    <Compile Include="IO\ExtensionMethods\DirectoryInfoExtensions.cs" />
-    <Compile Include="IO\ExtensionMethods\Enums\CopyOptions.cs" />
-    <Compile Include="IO\ExtensionMethods\FileInfoExtensions.cs" />
-    <Compile Include="IO\ExtensionMethods\SerializationExtensions.cs" />
-    <Compile Include="IO\ExtensionMethods\StringExtensions.cs" />
-    <Compile Include="IO\ExtensionMethods\UriExtensions.cs" />
+    <Compile Include="IO\Extensions\DirectoryInfoExtensions.cs" />
+    <Compile Include="IO\Extensions\Enums\CopyOptions.cs" />
+    <Compile Include="IO\Extensions\FileInfoExtensions.cs" />
+    <Compile Include="IO\Extensions\StringExtensions.cs" />
+    <Compile Include="IO\Extensions\UriExtensions.cs" />
+    <Compile Include="Logger\ILog.cs" />
+    <Compile Include="Logger\LamdaLog.cs" />
+    <Compile Include="Logger\Log.cs" />
+    <Compile Include="Logger\Log4NetLog.cs" />
+    <Compile Include="Logger\LogEvent.cs" />
+    <Compile Include="Logger\LoggerExtensions.cs" />
+    <Compile Include="Logger\LogLevel.cs" />
+    <Compile Include="Logger\NullLog.cs" />
+    <Compile Include="Luhn\Luhn.cs" />
     <Compile Include="Maths\Conversion.cs" />
     <Compile Include="Maths\ExtensionMethods\MathExtensions.cs" />
     <Compile Include="Maths\Matrix.cs" />
@@ -91,40 +99,30 @@
     <Compile Include="Patterns\IFluentInterface.cs" />
     <Compile Include="Patterns\Singleton.cs" />
     <Compile Include="Profiler\Profiler.cs" />
+    <Compile Include="Profiler\ProfilerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\ReflectionTypeChecker.cs" />
+    <Compile Include="Reflection\Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Validation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Validation\ExtensionMethods\ValidationExtensions.cs" />
     <Compile Include="Validation\ValidationAttributes\CurrentDateAttribute.cs" />
     <Compile Include="Validation\ValidationAttributes\GreaterThanDateAttribute.cs" />
     <Compile Include="Validation\FluentValidator.cs" />
     <Compile Include="Web\Web.cs" />
     <Compile Include="_Core\Collections\DictionaryOrdered.cs" />
-    <Compile Include="_Core\Exceptions\ValidationException.cs" />
-    <Compile Include="_Core\Extensions\ExtensionArgAttribute.cs" />
-    <Compile Include="_Core\Extensions\ExtensionAttribute.cs" />
-    <Compile Include="_Core\Extensions\ExtensionMetaData.cs" />
-    <Compile Include="_Core\Extensions\ExtensionService.cs" />
-    <Compile Include="_Core\Extensions\IExtensionService.cs" />
-    <Compile Include="_Core\Helpers\ExecuteHelper.cs" />
+    <Compile Include="_Core\Helpers\DataHelper.cs" />
     <Compile Include="_Core\Helpers\TypeHelper.cs" />
-    <Compile Include="_Core\Logger\ILog.cs" />
-    <Compile Include="_Core\Logger\LamdaLogger.cs" />
-    <Compile Include="_Core\Logger\LogEvent.cs" />
-    <Compile Include="_Core\Logger\LogLevel.cs" />
     <Compile Include="_Core\Regex\RegexPattern.cs" />
     <Compile Include="_Core\Utilities\Attributes.cs" />
     <Compile Include="_Core\Utilities\BoolMessage.cs" />
     <Compile Include="_Core\Utilities\GenericComparer.cs" />
-    <Compile Include="_Core\Utilities\Messages.cs" />
     <Compile Include="_Core\Utilities\PagedList.cs" />
     <Compile Include="_Core\Utilities\ToDo.cs" />
-    <Compile Include="_Core\Utilities\TupleResult.cs" />
     <Compile Include="_Samples\Example_ToDo.cs" />
     <Compile Include="_Samples\Example_Validation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Logger\Example_Log4Net_App.config" />
     <None Include="packages.config" />
-    <None Include="_Core\Logger\Example_Log4Net_App.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

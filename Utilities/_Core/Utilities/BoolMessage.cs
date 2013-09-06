@@ -3,7 +3,7 @@ using System;
 namespace Utilities
 {
     /// <summary>
-    ///   Combines a boolean succes/fail flag with a error/status errorMessage.
+    ///   Combines a Boolean successs/fail flag with a error/status errorMessage.
     /// </summary>
     public class BoolMessage
     {
@@ -18,29 +18,29 @@ namespace Utilities
         public static readonly BoolMessage False = new BoolMessage(false, string.Empty);
 
         /// <summary>
-        ///   Error errorMessage for failure, status errorMessage for success.
+        ///   Error errorMessage for failure, status errorMessage for successs.
         /// </summary>
         public readonly string Message;
 
         /// <summary>
-        ///   Success / failure ?
+        ///   successs / failure ?
         /// </summary>
-        public readonly bool Success;
+        public readonly bool successs;
 
         /// <summary>
         ///   Set the readonly fields.
         /// </summary>
-        /// <param name="success"> Flag for errorMessage to set. </param>
+        /// <param name="successs"> Flag for errorMessage to set. </param>
         /// <param name="message"> Message to set for flag. </param>
-        public BoolMessage(bool success, string message)
+        public BoolMessage(bool successs, string message)
         {
-            Success = success;
+            successs = successs;
             Message = message;
         }
     }
 
     /// <summary>
-    ///   Combines a boolean succes/fail flag with a error/status errorMessage and an object.
+	///   Combines a Boolean successs/fail flag with a error/status errorMessage and an object.
     /// </summary>
     public class BoolMessageItem : BoolMessage
     {
@@ -55,7 +55,7 @@ namespace Utilities
         public new static readonly BoolMessageItem False = new BoolMessageItem(null, false, string.Empty);
 
         /// <summary>
-        ///   Item associated with boolean errorMessage.
+        ///   Item associated with Boolean errorMessage.
         /// </summary>
         private readonly object _item;
 
@@ -63,10 +63,10 @@ namespace Utilities
         ///   Initializes a new instance of the <see cref="BoolMessageItem&lt;T&gt;" /> class.
         /// </summary>
         /// <param name="item"> The item. </param>
-        /// <param name="success"> if set to <c>true</c> [success]. </param>
+        /// <param name="successs"> if set to <c>true</c> [successs]. </param>
         /// <param name="message"> The errorMessage. </param>
-        public BoolMessageItem(object item, bool success, string message)
-            : base(success, message)
+        public BoolMessageItem(object item, bool successs, string message)
+            : base(successs, message)
         {
             _item = item;
         }
@@ -81,7 +81,7 @@ namespace Utilities
     }
 
     /// <summary>
-    ///   Tuple to store boolean, string errorMessage, and Exception object.
+    ///   Tuple to store Boolean, string errorMessage, and Exception object.
     /// </summary>
     public class BoolMessageEx : BoolMessage
     {
@@ -100,11 +100,11 @@ namespace Utilities
         /// <summary>
         ///   Initializes a new instance of the <see cref="BoolMessageItem&lt;T&gt;" /> class.
         /// </summary>
-        /// <param name="success"> if set to <c>true</c> [success]. </param>
+        /// <param name="successs"> if set to <c>true</c> [success]. </param>
         /// <param name="ex"> The exception. </param>
         /// <param name="message"> The errorMessage. </param>
-        public BoolMessageEx(bool success, Exception ex, string message)
-            : base(success, message)
+        public BoolMessageEx(bool successs, Exception ex, string message)
+            : base(successs, message)
         {
             _ex = ex;
         }
@@ -119,18 +119,18 @@ namespace Utilities
     }
 
     /// <summary>
-    ///   Combines a boolean succes/fail flag with a error/status errorMessage and an object.
+    ///   Combines a Boolean success/fail flag with a error/status errorMessage and an object.
     /// </summary>
-    /// <typeparam name="T"> Type of object combined with a boolean flag. </typeparam>
+    /// <typeparam name="T"> Type of object combined with a Boolean flag. </typeparam>
     public class BoolMessageItem<T> : BoolMessageItem
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="BoolMessageItem&lt;T&gt;" /> class.
         /// </summary>
         /// <param name="item"> The item. </param>
-        /// <param name="success"> if set to <c>true</c> [success]. </param>
+        /// <param name="successs"> if set to <c>true</c> [success]. </param>
         /// <param name="message"> The errorMessage. </param>
-        public BoolMessageItem(T item, bool success, string message) : base(item, success, message)
+        public BoolMessageItem(T item, bool successs, string message) : base(item, successs, message)
         {
         }
 
@@ -144,7 +144,7 @@ namespace Utilities
     }
 
     /// <summary>
-    ///   Extensions to the boolmessage item.
+    ///   Extensions to the bool message item.
     /// </summary>
     public static class BoolMessageExtensions
     {
@@ -155,7 +155,7 @@ namespace Utilities
         /// <returns> 0 for a successful exit, 1 otherwise. </returns>
         public static int AsExitCode(this BoolMessage result)
         {
-            return result.Success ? 0 : 1;
+            return result.successs ? 0 : 1;
         }
     }
 }

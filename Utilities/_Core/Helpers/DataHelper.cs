@@ -5,7 +5,7 @@ namespace Utilities
 {
     public static class DataHelper
     {
-        private static readonly Random random = new Random((int)DateTime.Now.Ticks);//thanks to McAden
+        private static readonly Random random = new Random((int)DateTime.Now.Ticks);
         
         public static string RandomString(int size)
         {

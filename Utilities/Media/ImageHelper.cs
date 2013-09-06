@@ -80,12 +80,12 @@ namespace Utilities.Media
         /// </summary>
         /// <param name="imageContents"> Byte array with converted image. </param>
         /// <returns> Tuple with height and width. </returns>
-        public static Tuple2<int, int> GetDimensions(byte[] imageContents)
+        public static Tuple<int, int> GetDimensions(byte[] imageContents)
         {
-            Image image = ConvertToImage(imageContents);
-            int width = Convert.ToInt32(image.PhysicalDimension.Width);
-            int height = Convert.ToInt32(image.PhysicalDimension.Height);
-            return new Tuple2<int, int>(height, width);
+            var image = ConvertToImage(imageContents);
+            var width = Convert.ToInt32(image.PhysicalDimension.Width);
+            var height = Convert.ToInt32(image.PhysicalDimension.Height);
+            return new Tuple<int, int>(height, width);
         }
     }
 }

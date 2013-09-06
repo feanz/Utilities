@@ -1,4 +1,4 @@
-﻿namespace Utilities
+﻿namespace Utilities.Logger
 {
     /// <summary>
     ///   Level for the logging.

@@ -7,13 +7,21 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
+using Utilities.Extensions;
+using Boolean = System.Boolean;
 
-namespace Utilities.Extensions
+namespace Utilities.Linq
 {
     /// <summary>
-    ///   A set of extentions that allow linq filtering and ordering by string and parameter collections
+    ///   A set of extensions that add extra linq functionality allowing you to select where and order by string expressions with param values
+	///   Taken from the dynamic linq library http://msdn.microsoft.com/en-US/vstudio/bb894665.aspx
+	/// <example> 
+	///		var query =
+    ///            db.Customers.Where("City == @0 and Orders.Count >= @1", "London", 10).
+    ///            OrderBy("CompanyName").
+    ///            Select("New(CompanyName as Name, Phone)");</example>
     /// </summary>
-    public static class LinqExtensions
+    public static class DynamicQueryable
     {
         public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, string ordering, params object[] values)
         {
@@ -49,6 +57,7 @@ namespace Utilities.Extensions
         {
             if (source == null) throw new ArgumentNullException("source");
             if (selector == null) throw new ArgumentNullException("selector");
+
             var lambda = DynamicExpression.ParseLambda(source.ElementType, null, selector, values);
             return source.Provider.CreateQuery(
                 Expression.Call(

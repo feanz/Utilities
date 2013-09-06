@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using Utilities.Extensions;
 
 namespace Utilities.Patterns
 {
@@ -26,13 +25,13 @@ namespace Utilities.Patterns
         {
             get
             {
-                if (_Instance.IsNull())
+                if (_Instance == null)
                 {
                     lock (typeof (T))
                     {
                         var Constructor = typeof (T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic,
                                                                     null, new Type[0], null);
-                        if (Constructor.IsNull() || Constructor.IsAssembly)
+                        if (Constructor == null || Constructor.IsAssembly)
                             throw new Exception("Constructor is not private or protected for type " + typeof (T).Name);
                         _Instance = (T) Constructor.Invoke(null);
                     }

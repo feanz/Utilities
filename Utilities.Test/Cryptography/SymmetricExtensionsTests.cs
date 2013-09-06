@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilities.Cryptography.ExtensionMethods;
 
 namespace Utilities.Test.Cryptography
@@ -7,43 +6,19 @@ namespace Utilities.Test.Cryptography
     [TestClass]
     public class SymmetricExtensionsTests
     {
-        [TestMethod]
-        public void Symmetric_decrypt_should_reproduce_plaintext_from_encrypted_string()
-        {
-            var encrypted = "plainText".Encrypt("passkey", "koshersalt");
-            var decrypted = encrypted.Decrypt("passkey", "koshersalt");
+	    [TestMethod]
+	    public void Can_encrypt_and_decrypt_random_string_data()
+	    {
+		    for (int i = 0; i < 1000; i++)
+		    {
+				var plaintext = DataHelper.RandomString(100);
 
-            Assert.AreEqual("plainText", decrypted);
-        }
+				var cipherText = plaintext.Encrypt("KEY");
 
-        [TestMethod]
-        [ExpectedException(typeof(CryptographicException))]
-        public void Symmetric_decrypt_should_not_reproduce_plaintext_when_key_is_incorrect()
-        {
-            var encrypted = "plainText".Encrypt("passkey", "koshersalt");
-            var decrypted = encrypted.Decrypt("wrongkey", "koshersalt");
+				var decrypt = cipherText.Decrypt("KEY");
 
-            Assert.AreNotEqual("plainText", decrypted);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(CryptographicException))]
-        public void Symmetric_decrypt_should_not_reproduce_plaintext_when_salt_is_incorrect()
-        {
-            var encrypted = "plainText".Encrypt("passkey", "koshersalt");
-            var decrypted = encrypted.Decrypt("passkey", "wrongsalt");
-
-            Assert.AreNotEqual("plainText", decrypted);
-        }
-
-        [TestMethod]
-        public void encrypt_decrypt_should_work_using_variaes_algorithm_and_keys_sizes()
-        {
-            const string data = "This is a test of the system.";
-            Assert.AreNotEqual("This is a test of the system.", data.Encrypt("Babysfirstkey", "koshersalt"));
-            Assert.AreEqual("This is a test of the system.", data.Encrypt("Babysfirstkey", "koshersalt").Decrypt("Babysfirstkey", "koshersalt"));
-            Assert.AreEqual("This is a test of the system.", data.Encrypt("Babysfirstkey", "koshersalt", algorithmUsing: new DESCryptoServiceProvider(), keySize: 64).Decrypt("Babysfirstkey","koshersalt", algorithmUsing: new DESCryptoServiceProvider(), keySize: 64));
-            Assert.AreEqual("This is a test of the system.", data.Encrypt("Babysfirstkey", "koshersalt", algorithmUsing: new TripleDESCryptoServiceProvider(), keySize: 192).Decrypt("Babysfirstkey","koshersalt", algorithmUsing: new TripleDESCryptoServiceProvider(), keySize: 192));
-        }
+				Assert.AreEqual(plaintext, decrypt);    
+		    }
+	    }
     }
 }

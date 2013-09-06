@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Utilities.Extensions;
 using Utilities.Maths.ExtensionMethods;
 
 namespace Utilities.Maths
@@ -10,7 +10,7 @@ namespace Utilities.Maths
     ///   Matrix used in linear algebra
     /// </summary>
     [Serializable]
-    public class Matrix
+    public sealed class Matrix
     {
         private int _height = 1;
         private int _width = 1;
@@ -31,8 +31,8 @@ namespace Utilities.Maths
         /// <summary>
         ///   Width of the matrix
         /// </summary>
-        [XmlElement]
-        public virtual int Width
+		[DataMember]
+        public int Width
         {
             get { return _width; }
             set
@@ -45,8 +45,8 @@ namespace Utilities.Maths
         /// <summary>
         ///   Height of the matrix
         /// </summary>
-        [XmlElement]
-        public virtual int Height
+        [DataMember]
+        public int Height
         {
             get { return _height; }
             set
@@ -62,7 +62,7 @@ namespace Utilities.Maths
         /// <param name="x"> X position </param>
         /// <param name="y"> Y position </param>
         /// <returns> the value at a point in the matrix </returns>
-        public virtual double this[int x, int y]
+        public double this[int x, int y]
         {
             get
             {
@@ -85,20 +85,20 @@ namespace Utilities.Maths
         /// <summary>
         ///   Values for the matrix
         /// </summary>
-        [XmlElement]
-        public virtual double[,] Values { get; set; }
+		[DataMember]
+        public double[,] Values { get; set; }
 
         /// <summary>
         ///   Gets the determinant of a square matrix
         /// </summary>
         /// <returns> The determinant of a square matrix </returns>
-        public virtual double Determinant()
+        public double Determinant()
         {
             if (Width != Height)
                 throw new Exception("The determinant can not be calculated for a non square matrix");
             if (Width == 2)
                 return (this[0, 0]*this[1, 1]) - (this[0, 1]*this[1, 0]);
-            double Answer = 0.0;
+            var Answer = 0.0;
             for (int x = 0; x < Width; ++x)
             {
                 var TempMatrix = new Matrix(Width - 1, Height - 1);
@@ -128,7 +128,7 @@ namespace Utilities.Maths
         ///   Transposes the matrix
         /// </summary>
         /// <returns> Returns a new transposed matrix </returns>
-        public virtual Matrix Transpose()
+        public Matrix Transpose()
         {
             var tempValues = new Matrix(Height, Width);
             for (var x = 0; x < Width; ++x)
@@ -141,9 +141,9 @@ namespace Utilities.Maths
 
         public static Matrix operator +(Matrix M1, Matrix M2)
         {
-            if (M1.IsNull())
+            if (M1 == null)
                 throw new ArgumentNullException("M1");
-            if (M2.IsNull())
+            if (M2 == null)
                 throw new ArgumentNullException("M2");
             if (M1.Width != M2.Width || M1.Height != M2.Height)
                 throw new ArgumentException("Both matrices must be the same dimensions.");
@@ -156,25 +156,25 @@ namespace Utilities.Maths
 
         public static Matrix operator /(Matrix M1, double D)
         {
-            if (M1.IsNull())
+            if (M1 == null)
                 throw new ArgumentNullException("M1");
             return M1*(1/D);
         }
 
         public static Matrix operator /(double D, Matrix M1)
         {
-            if (M1.IsNull())
+            if (M1 == null)
                 throw new ArgumentNullException("M1");
             return M1*(1/D);
         }
 
         public static bool operator ==(Matrix M1, Matrix M2)
         {
-            if (M1.IsNull() && M2.IsNull())
+            if (M1 == null && M2 == null)
                 return true;
-            if (M1.IsNull())
+            if (M1 == null)
                 return false;
-            if (M2.IsNull())
+            if (M2 == null)
                 return false;
             if (M1.Width != M2.Width || M1.Height != M2.Height)
                 return false;

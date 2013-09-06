@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utilities
+namespace Utilities.Logger
 {
     /// <summary>
     ///   A record in the log.
@@ -70,7 +70,7 @@ namespace Utilities
         }
 
         /// <summary>
-        ///   Initalize log event using loglevel, errorMessage and exception
+        ///   Initialize log event using loglevel, errorMessage and exception
         /// </summary>
         /// <param name="level"> Event log level. </param>
         /// <param name="errorMessage"> Log errorMessage. </param>

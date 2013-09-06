@@ -28,10 +28,8 @@ namespace Utilities
 
             if (isDefined)
             {
-                var adAttr = (AssemblyDescriptionAttribute) Attribute.GetCustomAttribute(assembly,
-                                                                                         typeof (
-                                                                                             AssemblyDescriptionAttribute
-                                                                                             ));
+                var adAttr = (AssemblyDescriptionAttribute)
+					Attribute.GetCustomAttribute(assembly, typeof (AssemblyDescriptionAttribute));
 
                 if (adAttr != null) description = adAttr.Description;
             }
@@ -47,7 +45,7 @@ namespace Utilities
         public static IList<T> GetClassAttributes<T>(object obj)
         {
             // Validate
-            if (obj.IsNull()) return new List<T>();
+            if (obj == null) return new List<T>();
 
             var attributes = obj.GetType().GetCustomAttributes(typeof (T), false);
 
@@ -60,11 +58,10 @@ namespace Utilities
         /// </summary>
         /// <typeparam name="T"> Type of attributes to return. </typeparam>
         /// <param name="assemblyName"> The name of the assembly to load widgets from. </param>
-        /// <param name="action"> A callback for the datatype and widgetattribute. </param>
+        /// <param name="action"> A callback for the datatype and widget attribute. </param>
         /// <returns> List of key/value pairs. </returns>
         public static IList<KeyValuePair<Type, T>> GetClassAttributesFromAssembly<T>(string assemblyName,
-                                                                                     Action<KeyValuePair<Type, T>>
-                                                                                         action)
+                                                                                     Action<KeyValuePair<Type, T>> action)
         {
             var assembly = Assembly.Load(assemblyName);
             var types = assembly.GetTypes();
@@ -90,7 +87,8 @@ namespace Utilities
         /// <param name="action"> Callback </param>
         /// <returns> List with property information. </returns>
         public static IList<KeyValuePair<PropertyInfo, TPropAttrib>> GetPropertiesWithAttributesOnTypes<TPropAttrib>(
-            IList<Type> types, Action<Type, KeyValuePair<PropertyInfo, TPropAttrib>> action)
+            IList<Type> types, 
+			Action<Type, KeyValuePair<PropertyInfo, TPropAttrib>> action)
             where TPropAttrib : Attribute
         {
             var propertyAttributes = new List<KeyValuePair<PropertyInfo, TPropAttrib>>();

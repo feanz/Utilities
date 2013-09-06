@@ -1,33 +1,34 @@
 ﻿using System.IO;
+using System.Linq;
 
-namespace Utilities.IO.ExtensionMethods
+namespace Utilities.IO.Extensions
 {
     /// <summary>
     ///   Extension methods for strings
     /// </summary>
     public static class StringExtensions
     {
-        /// <summary>
-        ///   Creates or opens a file for writing and writes text to it. Very simple quick file write.
-        /// </summary>
-        /// <param name="absolutePath"> The complete file path to write to. </param>
-        /// <param name="fileText"> A String containing text to be written to the file. </param>
-        public static void CreateToFile(this string fileText, string absolutePath)
-        {
-            using (var sw = File.CreateText(absolutePath))
-                sw.Write(fileText);
-        }
+		/// <summary>
+		///   Creates or opens a file for writing and writes text to it. Very simple quick file write.
+		/// </summary>
+		/// <param name="absolutePath"> The complete file path to write to. </param>
+		/// <param name="fileText"> A String containing text to be written to the file. </param>
+		public static void CreateToFile(this string fileText, string absolutePath)
+		{
+			using (var sw = File.CreateText(absolutePath))
+				sw.Write(fileText);
+		}
 
-        /// <summary>
-        ///   Read a text file and obtain it's contents.
-        /// </summary>
-        /// <param name="absolutePath"> The complete file path to write to. </param>
-        /// <returns> String containing the content of the file. </returns>
-        public static string GetFileText(this string absolutePath)
-        {
-            using (var sr = new StreamReader(absolutePath))
-                return sr.ReadToEnd();
-        }
+		/// <summary>
+		///   Read a text file and obtain it's contents.
+		/// </summary>
+		/// <param name="absolutePath"> The complete file path to write to. </param>
+		/// <returns> String containing the content of the file. </returns>
+		public static string GetFileText(this string absolutePath)
+		{
+			using (var sr = new StreamReader(absolutePath))
+				return sr.ReadToEnd();
+		}
 
         /// <summary>
         ///   Removes illegal characters from a directory
@@ -37,14 +38,12 @@ namespace Utilities.IO.ExtensionMethods
         /// <returns> DirectoryName with all illegal characters replaced with ReplacementChar </returns>
         public static string RemoveIllegalDirectoryNameCharacters(this string directoryName, char replacementChar = '_')
         {
-            if (!string.IsNullOrEmpty(directoryName))
-                return directoryName;
-            foreach (var Char in Path.GetInvalidPathChars())
-                directoryName = directoryName.Replace(Char, replacementChar);
-            return directoryName;
+	        return !string.IsNullOrEmpty(directoryName) ? 
+				directoryName : 
+				Path.GetInvalidPathChars().Aggregate(directoryName, (current, Char) => current.Replace(Char, replacementChar));
         }
 
-        /// <summary>
+	    /// <summary>
         ///   Removes illegal characters from a file
         /// </summary>
         /// <param name="fileName"> File name </param>
@@ -52,14 +51,10 @@ namespace Utilities.IO.ExtensionMethods
         /// <returns> FileName with all illegal characters replaced with ReplacementChar </returns>
         public static string RemoveIllegalFileNameCharacters(this string fileName, char replacemetChar = '_')
         {
-            if (string.IsNullOrEmpty(fileName))
-                return fileName;
-            foreach (var c in Path.GetInvalidFileNameChars())
-                fileName = fileName.Replace(c, replacemetChar);
-            return fileName;
+	        return string.IsNullOrEmpty(fileName) ? fileName : Path.GetInvalidFileNameChars().Aggregate(fileName, (current, c) => current.Replace(c, replacemetChar));
         }
 
-        /// <summary>
+	    /// <summary>
         ///   Update text within a file by replacing a substring within the file.
         /// </summary>
         /// <param name="absolutePath"> The complete file path to write to. </param>

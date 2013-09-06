@@ -8,8 +8,6 @@ namespace Utilities.Patterns
     /// </summary>
     public interface IFluentInterface
     {
-        #region Functions
-
         [EditorBrowsable(EditorBrowsableState.Never)]
         bool Equals(object obj);
 
@@ -21,7 +19,5 @@ namespace Utilities.Patterns
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         string ToString();
-
-        #endregion
     }
 }

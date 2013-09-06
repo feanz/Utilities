@@ -1,7 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using Utilities.Cryptography.ExtensionMethods;
-using Utilities.Extensions;
 
 namespace Utilities.Cryptography
 {
@@ -29,14 +29,20 @@ namespace Utilities.Cryptography
         /// <returns> A decrypted string </returns>
         public static string Decrypt(string input, string key, Encoding encodingUsing = null)
         {
-            input.ValidateNotNullOrEmpty("Input");
-            key.ValidateNotNullOrEmpty("Key");
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+	        if (string.IsNullOrEmpty(input))
+		        throw new ArgumentException("input");
+
+			if (string.IsNullOrEmpty(key))
+				throw new ArgumentException("key");
+
+			encodingUsing = encodingUsing ?? new UTF8Encoding();
+
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.FromXmlString(key);
-                byte[] EncryptedBytes = rsa.Decrypt(input.Base64ToByteArray(), true);
+				var decrypt = rsa.Decrypt(Convert.FromBase64String(input), true);
                 rsa.Clear();
-                return EncryptedBytes.ToEncodedString(encodingUsing);
+				return encodingUsing.GetString(decrypt);
             }
         }
 
@@ -49,14 +55,21 @@ namespace Utilities.Cryptography
         /// <returns> An encrypted string (64bit string) </returns>
         public static string Encrypt(string input, string key, Encoding encodingUsing = null)
         {
-            input.ValidateNotNullOrEmpty("Input");
-            key.ValidateNotNullOrEmpty("Key");
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+			if (string.IsNullOrEmpty(input))
+				throw new ArgumentException("input");
+
+			if (string.IsNullOrEmpty(key))
+				throw new ArgumentException("key");
+
+	        encodingUsing = encodingUsing ?? new UTF8Encoding();
+
+            using (var rsa = new RSACryptoServiceProvider())
             {
+
                 rsa.FromXmlString(key);
-                byte[] EncryptedBytes = rsa.Encrypt(input.ToByteArray(encodingUsing), true);
+				var encryptedBytes = rsa.Encrypt(encodingUsing.GetBytes(input), true);
                 rsa.Clear();
-                return EncryptedBytes.ToBase64String();
+                return Convert.ToBase64String(encryptedBytes);
             }
         }
 
@@ -67,42 +80,56 @@ namespace Utilities.Cryptography
         /// <param name="key"> Key to encrypt/sign with </param>
         /// <param name="hash"> This will be filled with the unsigned hash </param>
         /// <param name="encodingUsing"> Encoding that the input is using (defaults to UTF8) </param>
+		/// /// <param name="hashIdentifer">The id of the hash algorithm used (default SHA1)</param>
         /// <returns> A signed hash of the input (64bit string) </returns>
-        public static string SignHash(string input, string key, out string hash, Encoding encodingUsing = null)
+        public static string SignHash(string input, string key, out string hash, Encoding encodingUsing = null,  string hashIdentifer = "SHA1")
         {
-            input.ValidateNotNullOrEmpty("Input");
-            key.ValidateNotNullOrEmpty("Key");
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+			if (string.IsNullOrEmpty(input))
+				throw new ArgumentException("input");
+
+			if (string.IsNullOrEmpty(key))
+				throw new ArgumentException("key");
+
+	        encodingUsing = encodingUsing ?? new UTF8Encoding();
+
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.FromXmlString(key);
-                byte[] HashBytes = input.ToByteArray(encodingUsing).Hash();
-                byte[] SignedHash = rsa.SignHash(HashBytes, CryptoConfig.MapNameToOID("SHA1"));
+				var hashBytes = encodingUsing.GetBytes(input).Hash();
+                var signedHash = rsa.SignHash(hashBytes, CryptoConfig.MapNameToOID(hashIdentifer));
                 rsa.Clear();
-                hash = HashBytes.ToBase64String();
-                return SignedHash.ToBase64String();
+	            hash = Convert.ToBase64String(hashBytes);
+                return Convert.ToBase64String(signedHash);
             }
         }
 
-        /// <summary>
-        ///   Verifies a signed hash against the unsigned version
-        /// </summary>
-        /// <param name="hash"> The unsigned hash (should be 64bit string) </param>
-        /// <param name="signedHash"> The signed hash (should be 64bit string) </param>
-        /// <param name="key"> The key to use in decryption </param>
-        /// <returns> True if it is verified, false otherwise </returns>
-        public static bool VerifyHash(string hash, string signedHash, string key)
+	    /// <summary>
+	    ///   Verifies a signed hash against the unsigned version
+	    /// </summary>
+	    /// <param name="hash"> The unsigned hash (should be 64bit string) </param>
+	    /// <param name="signedHash"> The signed hash (should be 64bit string) </param>
+	    /// <param name="key"> The key to use in decryption </param>
+	    /// <param name="hashIdentifer">The id of the hash algorithm used (default SHA1)</param>
+	    /// <returns> True if it is verified, false otherwise </returns>
+	    public static bool VerifyHash(string hash, string signedHash, string key, string hashIdentifer = "SHA1")
         {
-            hash.ValidateNotNullOrEmpty("Hash");
-            signedHash.ValidateNotNullOrEmpty("SignedHash");
-            key.ValidateNotNullOrEmpty("Key");
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+			if (string.IsNullOrEmpty(hash))
+				throw new ArgumentException("input");
+
+			if (string.IsNullOrEmpty(signedHash))
+				throw new ArgumentException("signedHash");
+
+			if (string.IsNullOrEmpty(key))
+				throw new ArgumentException("key");
+
+            using (var rsa = new RSACryptoServiceProvider())
             {
-                RSA.FromXmlString(key);
-                byte[] InputArray = signedHash.Base64ToByteArray();
-                byte[] HashArray = hash.Base64ToByteArray();
-                bool Result = RSA.VerifyHash(HashArray, CryptoConfig.MapNameToOID("SHA1"), InputArray);
-                RSA.Clear();
-                return Result;
+                rsa.FromXmlString(key);
+				var inputArray = Convert.FromBase64String(signedHash);
+                var hashArray = Convert.FromBase64String(hash);
+				var result = rsa.VerifyHash(hashArray, CryptoConfig.MapNameToOID(hashIdentifer), inputArray);
+                rsa.Clear();
+                return result;
             }
         }
     }
