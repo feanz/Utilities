@@ -7,26 +7,24 @@ using System.Xml.Linq;
 namespace Utilities.Data
 {
 	/// <summary>
-	/// Basic implementation of an XmlReader that acts as an adapter to the IDataReader interfaces.
-	/// It uses streaming to maximize performance
-	/// This class is mostly used with things like the SqlBulkCopy API so not all members are implemented
+	///     Basic implementation of an XmlReader that acts as an adapter to the IDataReader interfaces.
+	///     It uses streaming to maximize performance
+	///     This class is mostly used with things like the SqlBulkCopy API so not all members are implemented
 	/// </summary>
 	public abstract class XmlDataReader : IDataReader
 	{
+		private readonly int fieldCount = -1;
+		protected readonly int invalidField = -1;
 		private readonly string rowElementName;
 
 		private readonly XmlReader xmlReader;
-		private readonly int fieldCount = -1;
-		protected readonly int invalidField = -1;
 
-		private bool m_disposed;
+		private bool disposed;
 
 		protected IEnumerator<XElement> enumerator;
 
-		public abstract object GetValue(int i);
-
 		/// <summary>
-		/// Initialize the XmlDataStreamer. After initialization call Read() to move the reader forward.
+		///     Initialize the XmlDataStreamer. After initialization call Read() to move the reader forward.
 		/// </summary>
 		/// <param name="xmlReader">XmlReader used to iterate the data. Will be disposed by when done.</param>
 		/// <param name="fieldCount">IDataReader FiledCount.</param>
@@ -38,6 +36,13 @@ namespace Utilities.Data
 			this.xmlReader = xmlReader;
 			enumerator = GetXmlStream().GetEnumerator();
 		}
+
+		public XElement CurrentElement
+		{
+			get { return enumerator.Current; }
+		}
+
+		public abstract object GetValue(int i);
 
 		public bool Read()
 		{
@@ -52,60 +57,15 @@ namespace Utilities.Data
 			get { return fieldCount; }
 		}
 
-		public XElement CurrentElement
-		{
-			get { return enumerator.Current; }
-		}
-
-		/// <summary>
-		/// http://msdn.microsoft.com/en-us/library/system.xml.linq.xstreamingelement.aspx
-		/// </summary>
-		/// <returns></returns>
-		private IEnumerable<XElement> GetXmlStream()
-		{
-			using (xmlReader)
-			{
-				xmlReader.MoveToContent();
-
-				while (xmlReader.Read())
-				{
-					if (IsRowElement())
-					{
-						var rowElement = XNode.ReadFrom(xmlReader) as XElement;
-						if (rowElement != null)
-						{
-							yield return rowElement;
-						}
-					}
-				}
-			}
-		}
-
-		private bool IsRowElement()
-		{
-			if (xmlReader.NodeType != XmlNodeType.Element)
-				return false;
-
-			return xmlReader.Name == rowElementName;
-		}
-
 		void IDisposable.Dispose()
 		{
 			Dispose();
 		}
 
-		protected virtual void Dispose()
-		{
-			if (m_disposed)
-				return;
-
-			enumerator.Dispose();
-			m_disposed = true;
-		}
-
 		public abstract int GetOrdinal(string name);
 
 		#region Not required by sql bulk copy
+
 		object IDataRecord.this[int i]
 		{
 			get { throw new NotImplementedException(); }
@@ -238,5 +198,39 @@ namespace Utilities.Data
 		}
 
 		#endregion
+
+		/// <summary>
+		///     http://msdn.microsoft.com/en-us/library/system.xml.linq.xstreamingelement.aspx
+		/// </summary>
+		/// <returns></returns>
+		private IEnumerable<XElement> GetXmlStream()
+		{
+			using (xmlReader)
+			{
+				//move to first element with row identifier
+				var onItemNode = xmlReader.ReadToFollowing(rowElementName);
+
+				while (onItemNode)
+				{
+					//reading the node will move the reader forward (dont .read() from the while loop)
+					var row = (XElement) XNode.ReadFrom(xmlReader);
+
+					yield return row;
+
+					//check that the ReadFrom call leaves us at a element with the identifier 
+					if (!xmlReader.IsStartElement(rowElementName))
+						onItemNode = xmlReader.ReadToFollowing(rowElementName);
+				}
+			}
+		}
+
+		protected virtual void Dispose()
+		{
+			if (disposed)
+				return;
+
+			enumerator.Dispose();
+			disposed = true;
+		}
 	}
 }
