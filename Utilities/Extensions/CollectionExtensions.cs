@@ -12,6 +12,29 @@ namespace Utilities.Extensions
 	public static class CollectionExtensions
 	{
 		/// <summary>
+		/// Split IEnumerable into batches of a given size plus the remander
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="collection"></param>
+		/// <param name="batchSize"></param>
+		/// <returns></returns>
+		public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> collection, int batchSize)
+		{
+			var nextbatch = new List<T>(batchSize);
+			foreach (var item in collection)
+			{
+				nextbatch.Add(item);
+				if (nextbatch.Count == batchSize)
+				{
+					yield return nextbatch;
+					nextbatch = new List<T>(batchSize);
+				}
+			}
+			if (nextbatch.Count > 0)
+				yield return nextbatch;
+		}
+
+		/// <summary>
 		///     AddRange of items of same type to IList.
 		/// </summary>
 		/// <typeparam name="T"> Type of items to use. </typeparam>
