@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Utilities.Extensions;
 
 namespace Utilities.Csv
 {
@@ -33,7 +32,7 @@ namespace Utilities.Csv
                 row.EmptyRow = true;
                 return true;
             }
-            if (row.LineText.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(row.LineText))
                 return false;
 
             int pos = 0;
