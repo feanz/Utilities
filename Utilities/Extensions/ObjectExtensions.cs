@@ -27,7 +27,7 @@ namespace Utilities.Extensions
 					return (T) Enum.Parse(typeof (T), instance.ToString(), true);
 
 				//If it is IConvertable
-				if (instance.Is<IConvertible>())
+				if (instance.Is<IConvertible>() && !(instance.Is<string>() && instance.ToString() == ""))
 					return (T) Convert.ChangeType(instance, typeof (T));
 
 				//If assignable from cast
