@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Cryptography\SymmetricExtensionsTests.cs" />
     <Compile Include="Extensions\CollectionExtensionsTests.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\ValidatorFluentTests.cs" />
   </ItemGroup>
