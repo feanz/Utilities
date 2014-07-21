@@ -20,8 +20,8 @@ namespace Utilities.Extensions
 		/// <returns> Object converted to supplied type. </returns>
 		public static T As<T>(this object instance)
 		{
-			if (instance.IsNotNull())
-			{
+			if (instance != null)
+			{ 
 				//If its an enum
 				if (typeof (T).IsEnum)
 					return (T) Enum.Parse(typeof (T), instance.ToString(), true);
@@ -136,7 +136,7 @@ namespace Utilities.Extensions
 			var instanceType = (instance is Type ? (Type) instance : instance.GetType());
 			if (checkType.IsInterface)
 			{
-				return instanceType == checkType || instanceType.GetInterface(checkType.Name).IsNotNull();
+				return instanceType == checkType || instanceType.GetInterface(checkType.Name) != null
 			}
 			return instanceType == checkType || instanceType.IsSubclassOf(checkType);
 		}
