@@ -136,7 +136,7 @@ namespace Utilities.Extensions
 			var instanceType = (instance is Type ? (Type) instance : instance.GetType());
 			if (checkType.IsInterface)
 			{
-				return instanceType == checkType || instanceType.GetInterface(checkType.Name) != null
+				return instanceType == checkType || instanceType.GetInterface(checkType.Name) != null;
 			}
 			return instanceType == checkType || instanceType.IsSubclassOf(checkType);
 		}
